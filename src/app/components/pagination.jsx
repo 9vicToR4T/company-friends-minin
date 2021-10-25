@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Pagination = ({ itemsCount, pageSize, onChangePage, currenPage }) => {
+const Pagination = ({ itemsCount, pageSize, onChangePage, currentPage }) => {
     const pageElements = Math.ceil(itemsCount / pageSize);
     const numberOfPages = new Array(+`${pageElements}`)
         .fill("")
@@ -16,7 +16,7 @@ const Pagination = ({ itemsCount, pageSize, onChangePage, currenPage }) => {
             {numberOfPages.map((page) => (
                 <li
                     className={
-                        "page-item " + (currenPage === page ? "active" : "")
+                        "page-item " + (currentPage === page ? "active" : "")
                     }
                     key={page}
                 >
@@ -31,7 +31,7 @@ const Pagination = ({ itemsCount, pageSize, onChangePage, currenPage }) => {
 Pagination.propTypes = {
     itemsCount: PropTypes.number.isRequired,
     pageSize: PropTypes.number.isRequired,
-    currenPage: PropTypes.number.isRequired,
+    currentPage: PropTypes.number.isRequired,
     onChangePage: PropTypes.func
 };
 export default Pagination;

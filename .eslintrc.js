@@ -17,7 +17,10 @@ module.exports = {
     rules: {
         indent: ["error", 4],
         semi: [2, "always"],
-        "space-before-function-paren": ["error", "never"],
+        "space-before-function-paren": [
+            "error",
+            { named: "never", anonymous: "always" }
+        ],
         "dot-notation": 0,
         quotes: [
             0,
@@ -31,7 +34,8 @@ module.exports = {
     settings: {
         "import/resolver": {
             node: {
-                paths: ["src"]
+                "import/no-unresolved": 0,
+                "import/extensions": 0
             }
         }
     }
