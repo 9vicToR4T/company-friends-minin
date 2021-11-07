@@ -9,12 +9,12 @@ const User = ({ id, name, profession, qualities, completedMeetings, rate }) => {
         <tr key={id}>
             <td>{name}</td>
             <td>
-                {qualities.map((el) => (
+                {qualities.map((qual) => (
                     <Qualities
-                        key={el["_id"]}
-                        id={el["_id"]}
-                        name={el["name"]}
-                        color={el["color"]}
+                        key={qual["_id"]}
+                        id={qual["_id"]}
+                        name={qual["name"]}
+                        color={qual["color"]}
                     />
                 ))}
             </td>

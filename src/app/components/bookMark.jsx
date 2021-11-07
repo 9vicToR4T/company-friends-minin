@@ -1,20 +1,21 @@
-import React, { useState } from "react";
-
-const BookMark = () => {
-    const [bookmark, setBookmark] = useState(false);
+import React from "react";
+import PropTypes from "prop-types";
+const BookMark = ({ status, onChangeBookMark }) => {
     return (
-        <td>
-            <button onClick={() => setBookmark(!bookmark)}>
-                {bookmark
-                    ? (
-                        <i className="bi bi-bookmark-fill"></i>
-                    )
-                    : (
-                        <i className="bi bi-bookmark"></i>
-                    )}
-            </button>
-        </td>
+        <button onClick={onChangeBookMark}>
+            { status
+                ? (
+                    <i className="bi bi-bookmark-fill"></i>
+                )
+                : (
+                    <i className="bi bi-bookmark"></i>
+                )}
+        </button>
     );
+};
+BookMark.propTypes = {
+    status: PropTypes.bool,
+    onChangeBookMark: PropTypes.func
 };
 
 export default BookMark;
