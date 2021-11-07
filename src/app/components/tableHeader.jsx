@@ -1,9 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 const TableHeader = ({ columns, onSort, selectedSort }) => {
-    // let arrow;
-    // arrow(<i className="bi bi-caret-down-fill"></i>);
-    // arrow = (<i className="bi bi-caret-up-fill"></i>);
     const handleSort = (item) => {
         if (item === selectedSort.path) {
             onSort({
@@ -16,8 +13,6 @@ const TableHeader = ({ columns, onSort, selectedSort }) => {
     };
 
     const setArrows = (selectedSort, pathItem) => {
-        console.log(selectedSort, 'selectedSort');
-        console.log(pathItem, 'path');
         if (selectedSort.path === pathItem) {
             if (selectedSort.order === 'asc') {
                 return <i className="bi bi-caret-down-fill"></i>;
@@ -60,16 +55,3 @@ TableHeader.propTypes = {
 };
 
 export default TableHeader;
-
-// <th scope="col">Role</th>
-// <th onClick={() => handleSort("profession.name")} scope="col">
-//     Job
-// </th>
-// <th onClick={() => handleSort("completedMeetings")} scope="col">
-//     Met
-// </th>
-// <th onClick={() => handleSort("rate")} scope="col">
-//     Note
-// </th>
-// <th scope="col">Mark</th>
-// <th></th>

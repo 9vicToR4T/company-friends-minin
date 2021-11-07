@@ -8,7 +8,17 @@ import api from "../API";
 import UsersTable from "./usersTable";
 import _ from "lodash";
 
-const Users = ({ users: allUsers, ...rest }) => {
+const Users = () => {
+    const [users, setUsers] = useState();
+    useEffect(() => {
+        api.users.fetchAll().then((data) => setUsers(data));
+    }, []);
+    const handleDeleteBtn = (e) => {
+        const { target } = e;
+        const getId = target.dataset.id;
+        setUsers(users.filter((user) => getId !== user["_id"]));
+    };
+
     const pageSize = 4;
     const [professions, setProfessions] = useState();
     useEffect(() => {
@@ -30,12 +40,12 @@ const Users = ({ users: allUsers, ...rest }) => {
     }, [selectedProf]);
 
     const filteredUsers = selectedProf
-        ? allUsers.filter(
+        ? users.filter(
             (user) =>
                 JSON.stringify(user["profession"].name) ===
                 JSON.stringify(selectedProf.name)
         )
-        : allUsers;
+        : users;
 
     const handleBookMarkState = (id) => {
         console.log(id);
@@ -52,49 +62,54 @@ const Users = ({ users: allUsers, ...rest }) => {
     const handleSortItems = (item) => {
         setSortBy(item);
     };
-    const count = filteredUsers.length;
-    return (
-        <div className="d-flex ">
-            {professions && (
-                <div className="flex-column m-3 align-items-end">
-                    <ListGroup
-                        items={professions}
-                        onItemSelect={handleProfessionSelect}
-                        selectedProf={selectedProf}
-                    />
-                    <button
-                        className="btn btn-primary mt-2"
-                        onClick={() => handleCleanFilters()}
-                    >
-                        Clean filters!
-                    </button>
-                </div>
-            )}
 
-            <div>
-                <SearchStatus length={count} />
-                {count > 0 && (
-                    <>
-                        <UsersTable
-                            users={usersCrop}
-                            onSort={handleSortItems}
-                            selectedSort={sortBy}
-                            onChangeBookMark={handleBookMarkState}
-                            {...rest}
+    if (users) {
+        const count = filteredUsers.length;
+        return (
+            <div className="d-flex ">
+                {professions && (
+                    <div className="flex-column m-3 align-items-end">
+                        <ListGroup
+                            items={professions}
+                            onItemSelect={handleProfessionSelect}
+                            selectedProf={selectedProf}
                         />
-                        <div className="d-flex justify-content-center">
-                            <Pagination
-                                itemsCount={count}
-                                pageSize={pageSize}
-                                currentPage={currentPage}
-                                onChangePage={handleChangePage}
-                            />
-                        </div>
-                    </>
+                        <button
+                            className="btn btn-primary mt-2"
+                            onClick={() => handleCleanFilters()}
+                        >
+                            Clean filters!
+                        </button>
+                    </div>
                 )}
+
+                <div>
+                    <SearchStatus length={count} />
+                    {count > 0 && (
+                        <>
+                            <UsersTable
+                                users={usersCrop}
+                                onSort={handleSortItems}
+                                selectedSort={sortBy}
+                                onChangeBookMark={handleBookMarkState}
+                                onDeleteBtn={handleDeleteBtn}
+                            />
+                            <div className="d-flex justify-content-center">
+                                <Pagination
+                                    itemsCount={count}
+                                    pageSize={pageSize}
+                                    currentPage={currentPage}
+                                    onChangePage={handleChangePage}
+                                />
+                            </div>
+                        </>
+                    )}
+                </div>
             </div>
-        </div>
-    );
+        );
+    } else {
+        return "loading...";
+    }
 };
 Users.propTypes = {
     users: PropTypes.array,
