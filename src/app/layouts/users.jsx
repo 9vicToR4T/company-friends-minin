@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Pagination from "./pagination";
-import SearchStatus from "./searchStatus";
+import Pagination from "../components/pagination";
+import SearchStatus from "../components/searchStatus";
 import { paginate } from "../utils/paginate";
 import { PropTypes } from "prop-types";
-import ListGroup from "./listGroup";
+import ListGroup from "../components/listGroup";
 import api from "../API";
-import UsersTable from "./usersTable";
+import UsersTable from "../components/usersTable";
 import _ from "lodash";
+import LoadingElement from "../components/loadingComponent";
 
 const Users = () => {
     const [users, setUsers] = useState();
@@ -108,7 +109,7 @@ const Users = () => {
             </div>
         );
     } else {
-        return "loading...";
+        return <LoadingElement/>;
     }
 };
 Users.propTypes = {

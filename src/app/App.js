@@ -1,8 +1,38 @@
 import React from "react";
-import Users from "./components/users";
+import { BrowserRouter as Router, Link, Switch, Route } from "react-router-dom";
+import Users from "./layouts/users";
+import Login from "./layouts/login";
+import Main from "./layouts/main";
+import InfoUser from "./components/infoUser";
 
 const App = () => {
-    return <Users />;
+    return (
+        <Router>
+            <ul className="nav">
+                <li className="nav-item">
+                    <Link className="nav-link" to="/">
+                        Main
+                    </Link>
+                </li>
+                <li className="nav-item">
+                    <Link className="nav-link" to="/login">
+                        Login
+                    </Link>
+                </li>
+                <li className="nav-item">
+                    <Link className="nav-link" to="/users">
+                        Users
+                    </Link>
+                </li>
+            </ul>
+            <Switch>
+                <Route path="/" exact component={Main} />
+                <Route path="/login" component={Login} />
+                <Route path="/users/:userId" component={InfoUser} />
+                <Route path="/users" exact component={Users} />
+            </Switch>
+        </Router>
+    );
 };
 
 export default App;
