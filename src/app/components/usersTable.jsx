@@ -3,9 +3,10 @@ import { PropTypes } from "prop-types";
 import BookMark from "./bookMark";
 import Btn from "./buttonDelete";
 import QualitiesList from "./qualitiesList";
-import Table from './table';
-import TableHeader from './tableHeader';
-import TableBody from './tableBody';
+import Table from "./table";
+import TableHeader from "./tableHeader";
+import TableBody from "./tableBody";
+import { Link } from "react-router-dom";
 
 const UsersTable = ({
     users,
@@ -15,8 +16,17 @@ const UsersTable = ({
     onChangeBookMark
 }) => {
     const columns = {
-        name: { path: "name", name: "Name" },
-        qualities: { name: "Qualities", component: (user) => <QualitiesList qualities={user.qualities}/> },
+        name: {
+            path: "name",
+            name: "Name",
+            component: (user) => (
+                <Link to={`/users/${user._id}`}>{user.name}</Link>
+            )
+        },
+        qualities: {
+            name: "Qualities",
+            component: (user) => <QualitiesList qualities={user.qualities} />
+        },
         profession: { path: "profession.name", name: "Profession" },
         completedMeetings: { path: "completedMeetings", name: "Meetings" },
         rate: { path: "rate", name: "Rate" },
@@ -25,7 +35,7 @@ const UsersTable = ({
             name: "Selected",
             component: (user) => (
                 <BookMark
-                    stautus={user.bookMark}
+                    status={user.bookMark}
                     onChangeBookMark={() => onChangeBookMark(user._id)}
                 />
             )

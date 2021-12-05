@@ -30,18 +30,18 @@ const ListGroup = ({
             {isArray
                 ? arrayTypeOfData(items)
                 : Object.keys(items).map((item) => (
-                    <li
-                        key={items[item][propertyId]}
-                        onClick={() => onItemSelect(items[item])}
-                        className={
-                            "list-group-item" +
-                            (selectedProf === items[item] ? " active" : "")
-                        }
-                        role="button"
-                    >
-                        {items[item][propertyContent]}
-                    </li>
-                ))}
+                      <li
+                          key={items[item][propertyId]}
+                          onClick={() => onItemSelect(items[item])}
+                          className={
+                              "list-group-item" +
+                              (selectedProf === items[item] ? " active" : "")
+                          }
+                          role="button"
+                      >
+                          {items[item][propertyContent]}
+                      </li>
+                  ))}
         </ul>
     );
 };

@@ -15,12 +15,13 @@ module.exports = {
     },
     plugins: ["react"],
     rules: {
-        indent: ["error", 4],
+        indent: [0, 4],
         semi: [2, "always"],
         "space-before-function-paren": [
             "error",
             { named: "never", anonymous: "always" }
         ],
+        "no-tabs": ["error", { allowIndentationTabs: true }],
         "dot-notation": 0,
         quotes: [
             0,

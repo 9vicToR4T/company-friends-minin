@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 const BookMark = ({ status, onChangeBookMark }) => {
     return (
         <button onClick={onChangeBookMark}>
-            { status
+            {status
                 ? (
                     <i className="bi bi-bookmark-fill"></i>
                 )

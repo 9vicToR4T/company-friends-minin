@@ -14,14 +14,14 @@ const TableHeader = ({ columns, onSort, selectedSort }) => {
 
     const setArrows = (selectedSort, pathItem) => {
         if (selectedSort.path === pathItem) {
-            if (selectedSort.order === 'asc') {
+            if (selectedSort.order === "asc") {
                 return <i className="bi bi-caret-down-fill"></i>;
-            } else if (selectedSort.order === 'desc') {
+            } else if (selectedSort.order === "desc") {
                 return <i className="bi bi-caret-up-fill"></i>;
             } else {
                 return null;
             }
-        };
+        }
     };
     return (
         <thead>
@@ -31,11 +31,7 @@ const TableHeader = ({ columns, onSort, selectedSort }) => {
                     return (
                         <th
                             key={item}
-                            onClick={
-                                path
-                                    ? () => handleSort(path)
-                                    : undefined
-                            }
+                            onClick={path ? () => handleSort(path) : undefined}
                             {...{ role: path && "button" }}
                             scope="col"
                         >

@@ -1,13 +1,13 @@
 import React from "react";
 import api from "../API";
-import PropTypes from "prop-types";
 import Qualities from "./qualities";
 import LoadingElement from "./loadingComponent";
 import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const InfoUser = ({ match }) => {
-    const { userId } = match.params;
+const UserPage = ({ userId }) => {
     const history = useHistory();
+
     const [user, setUser] = React.useState();
     userId &&
         React.useEffect(() => {
@@ -57,11 +57,8 @@ const InfoUser = ({ match }) => {
 
     return <div>{user ? renderInfoUser(user) : <LoadingElement />}</div>;
 };
-InfoUser.propTypes = {
-    match: PropTypes.shape({
-        pathName: PropTypes.string,
-        params: PropTypes.object
-    }),
-    history: PropTypes.any
+UserPage.propTypes = {
+    userId: PropTypes.string.isRequired
 };
-export default InfoUser;
+
+export default UserPage;

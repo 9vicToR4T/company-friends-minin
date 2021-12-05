@@ -1,0 +1,5 @@
+const SearchForm = ({}) => {
+	return(
+		
+	)
+};
