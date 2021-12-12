@@ -8,6 +8,7 @@ import api from "../API";
 import UsersTable from "./usersTable";
 import _ from "lodash";
 import LoadingElement from "./loadingComponent";
+import SearchForm from "./searchForm";
 
 const UsersList = () => {
     const [users, setUsers] = useState();
@@ -109,7 +110,8 @@ const UsersList = () => {
 
                 <div>
                     <SearchStatus length={count} />
-                    <form>
+                    <SearchForm onChangeUser={handleChangeUser} />
+                    {/* <form>
                         <label htmlFor="searchInput"></label>
                         <div className="input-group has-validation mb-3">
                             <input
@@ -123,7 +125,7 @@ const UsersList = () => {
                                 <i className="bi bi-search"></i>
                             </button>
                         </div>
-                    </form>
+                    </form> */}
                     {count > 0 && (
                         <>
                             <UsersTable
