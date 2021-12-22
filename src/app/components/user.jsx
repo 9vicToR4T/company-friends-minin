@@ -1,5 +1,5 @@
 import React from "react";
-import BookMark from "./bookMark";
+import BookMark from "./common/bookMark";
 import Btn from "./buttonDelete";
 import Qualities from "./qualities";
 import { PropTypes } from "prop-types";

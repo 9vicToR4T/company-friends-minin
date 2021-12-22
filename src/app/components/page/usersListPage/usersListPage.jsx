@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import Pagination from "./pagination";
-import SearchStatus from "./searchStatus";
-import { paginate } from "../utils/paginate";
+import Pagination from "../../common/pagination";
+import SearchStatus from "../../ui/searchStatus";
+import { paginate } from "../../../utils/paginate";
 import { PropTypes } from "prop-types";
-import ListGroup from "./listGroup";
-import api from "../API";
-import UsersTable from "./usersTable";
+import ListGroup from "../../common/listGroup";
+import api from "../../../API";
+import UsersTable from "../../ui/usersTable";
 import _ from "lodash";
-import LoadingElement from "./loadingComponent";
-import SearchForm from "./searchForm";
+import LoadingElement from "../../common/loadingComponent";
+import SearchForm from "../../ui/searchForm";
 
-const UsersList = () => {
+const UsersListPage = () => {
     const [users, setUsers] = useState();
 
     useEffect(() => {
@@ -111,21 +111,6 @@ const UsersList = () => {
                 <div>
                     <SearchStatus length={count} />
                     <SearchForm onChangeUser={handleChangeUser} />
-                    {/* <form>
-                        <label htmlFor="searchInput"></label>
-                        <div className="input-group has-validation mb-3">
-                            <input
-                                type="text"
-                                id="searchInput"
-                                className="w-50"
-                                autoComplete="off"
-                                onChange={handleChangeUser}
-                            />
-                            <button type="button" className="btn btn-primary">
-                                <i className="bi bi-search"></i>
-                            </button>
-                        </div>
-                    </form> */}
                     {count > 0 && (
                         <>
                             <UsersTable
@@ -152,9 +137,9 @@ const UsersList = () => {
         return <LoadingElement />;
     }
 };
-UsersList.propTypes = {
+UsersListPage.propTypes = {
     users: PropTypes.array,
     onDeleteBtn: PropTypes.func
 };
 
-export default UsersList;
+export default UsersListPage;

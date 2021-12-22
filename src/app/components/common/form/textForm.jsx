@@ -29,7 +29,7 @@ const TextForm = ({ label, name, type, value, error, onChange }) => {
                     >
                         <i
                             className={
-                                "bi bi-eye" + (!showPassword ? "-slash" : "")
+                                "bi bi-eye" + (showPassword ? "-slash" : "")
                             }
                         ></i>
                     </button>

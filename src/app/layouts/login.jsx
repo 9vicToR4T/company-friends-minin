@@ -1,91 +1,48 @@
 import React, { useState } from "react";
-import { useEffect } from "react/cjs/react.development";
-import TextForm from "../components/textForm";
-import { validator } from "../utils/validator";
+import { useParams } from "react-router-dom";
+import LoginForm from "../components/ui/loginForm";
+import RegisterForm from "../components/ui/registerForm";
+
 const Login = () => {
-    const [data, setData] = useState({ email: "", password: "" });
-    const [errors, setErrors] = useState({});
-    useEffect(() => {
-        validate();
-    }, [data]);
-
-    const handleData = (e) => {
-        setData((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }));
-    };
-    const validateConfig = {
-        email: {
-            isRequired: {
-                message: "Write your email"
-            },
-            isEmail: {
-                message: "Email is wrong"
-            }
-        },
-        password: {
-            isRequired: {
-                message: "Write your password"
-            },
-            isCapitalLetter: {
-                message: "Must have a capital letter"
-            },
-            num: {
-                message: "Must have a number"
-            },
-            passwordLength: {
-                message: "Minimum 8 caracters",
-                value: 8
-            }
-        }
+    const { registerParam } = useParams();
+    const [formType, setFormType] = useState(
+        registerParam === "register" ? "register" : "login"
+    );
+    const handleFormType = () => {
+        setFormType((prevState) =>
+            prevState === "register" ? "login" : "register"
+        );
     };
 
-    const validate = () => {
-        const errors = validator(data, validateConfig);
-        setErrors(errors);
-        return Object.keys(errors).length === 0;
-    };
-    const isValid = Object.keys(errors).length === 0;
-
-    const handleSubmitForm = (e) => {
-        e.preventDefault();
-        const isValid = validate();
-        if (!isValid) {
-            return;
-        }
-        console.log(data, "data");
-    };
     return (
         <div className="container ">
             <div className="row justify-content-center">
-                <div className="col-md-6 offset-md-3 shadow mt-5 p-4">
-                    <h2>Login</h2>
-                    <form onSubmit={handleSubmitForm}>
-                        <TextForm
-                            label="Email"
-                            name="email"
-                            type="text"
-                            value={data.value}
-                            error={errors["email"]}
-                            onChange={handleData}
-                        />
-                        <TextForm
-                            label="Password"
-                            name="password"
-                            type="password"
-                            value={data.value}
-                            error={errors["password"]}
-                            onChange={handleData}
-                        />
-                        <button
-                            type="submit"
-                            className="btn btn-primary w-100 ma-0 mt-3"
-                            disabled={!isValid}
-                        >
-                            Send Form
-                        </button>
-                    </form>
+                <div className="col-md-6 shadow mt-5 p-4">
+                    {formType === "register"
+                    ? (
+                        <>
+                            <h2>Register</h2>
+                            <RegisterForm />
+                            <div className='mt-3'>
+                                Have an account?{" "}
+                                <a role="button" onClick={handleFormType}>
+                                    Login
+                                </a>
+                            </div>
+                        </>
+                    )
+                    : (
+                        <>
+                            <h2>Login</h2>
+                            <LoginForm />
+                            <div className='mt-3'>
+                                Do not have an account?{" "}
+                                <a role="button" onClick={handleFormType}>
+                                    Register
+                                </a>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
         </div>

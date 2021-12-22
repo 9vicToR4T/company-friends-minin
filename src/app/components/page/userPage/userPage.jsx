@@ -1,7 +1,7 @@
 import React from "react";
-import api from "../API";
-import Qualities from "./qualities";
-import LoadingElement from "./loadingComponent";
+import api from "../../../API";
+import Qualities from "../../ui/qualities/qualities";
+import LoadingElement from "../../common/loadingComponent";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 

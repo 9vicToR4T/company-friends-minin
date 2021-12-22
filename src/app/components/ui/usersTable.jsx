@@ -1,12 +1,10 @@
 import React from "react";
 import { PropTypes } from "prop-types";
-import BookMark from "./bookMark";
-import Btn from "./buttonDelete";
-import QualitiesList from "./qualitiesList";
-import Table from "./table";
-import TableHeader from "./tableHeader";
-import TableBody from "./tableBody";
+import BookMark from "../common/bookMark";
+import Btn from "../common/buttonDelete";
+import Qualities from "../ui/qualities";
 import { Link } from "react-router-dom";
+import Table from "../common/table";
 
 const UsersTable = ({
     users,
@@ -25,7 +23,7 @@ const UsersTable = ({
         },
         qualities: {
             name: "Qualities",
-            component: (user) => <QualitiesList qualities={user.qualities} />
+            component: (user) => <Qualities qualities={user.qualities} />
         },
         profession: { path: "profession.name", name: "Profession" },
         completedMeetings: { path: "completedMeetings", name: "Meetings" },
@@ -51,10 +49,7 @@ const UsersTable = ({
             selectedSort={selectedSort}
             columns={columns}
             data={users}
-        >
-            <TableHeader {...{ onSort, selectedSort, columns }} />
-            <TableBody {...{ columns, data: users, onDeleteBtn }} />
-        </Table>
+        />
     );
 };
 UsersTable.propTypes = {
