@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import LoginForm from "../components/ui/loginForm";
 import RegisterForm from "../components/ui/registerForm";
 
@@ -23,11 +23,14 @@ const Login = () => {
                         <>
                             <h2>Register</h2>
                             <RegisterForm />
-                            <div className='mt-3'>
+                            <div className="mt-3">
                                 Have an account?{" "}
-                                <a role="button" onClick={handleFormType}>
+                                {/* <a role="button" onClick={handleFormType}>
                                     Login
-                                </a>
+                                </a> */}
+                                <Link to="/login" onClick={handleFormType}>
+                                    Login
+                                </Link>
                             </div>
                         </>
                     )
@@ -35,11 +38,17 @@ const Login = () => {
                         <>
                             <h2>Login</h2>
                             <LoginForm />
-                            <div className='mt-3'>
+                            <div className="mt-3">
                                 Do not have an account?{" "}
-                                <a role="button" onClick={handleFormType}>
+                                {/* <a role="button" onClick={handleFormType}>
                                     Register
-                                </a>
+                                </a> */}
+                                <Link
+                                    to="/login/register"
+                                    onClick={handleFormType}
+                                >
+                                    Register
+                                </Link>
                             </div>
                         </>
                     )}

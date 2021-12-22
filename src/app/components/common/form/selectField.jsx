@@ -13,6 +13,7 @@ const SelectField = ({
     const isArray =
         !Array.isArray(data) && typeof data === "object"
             ? Object.keys(data).map((professionName) => ({
+                //   key: data[professionName].name + data[professionName]._id,
                   name: data[professionName].name,
                   value: data[professionName]._id
               }))
@@ -38,10 +39,7 @@ const SelectField = ({
                     {defaultOption}
                 </option>
                 {isArray.map((obj) => (
-                    <option
-                        key={obj.value}
-                        value={obj.name}
-                    >
+                    <option key={obj.value + obj.name} value={obj.name}>
                         {obj.name}
                     </option>
                 ))}

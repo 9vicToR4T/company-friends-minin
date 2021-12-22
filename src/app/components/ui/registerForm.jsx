@@ -3,14 +3,16 @@ import { validator } from "../../utils/validator";
 import TextForm from "../common/form/textForm";
 import api from "../../API";
 import SelectField from "../common/form/selectField";
+import RadioField from "../common/form/radioField";
 
 const RegisterForm = () => {
     const [data, setData] = useState({
         email: "",
         password: "",
-        profession: ""
-	});
-	console.log(data);
+        profession: "",
+        radio: 'male'
+    });
+    console.log(data);
     const [errors, setErrors] = useState({});
     const [professions, setProfessions] = useState({});
     useEffect(() => {
@@ -93,11 +95,22 @@ const RegisterForm = () => {
             <SelectField
                 label="Profession"
                 name="profession"
-				valueSelect={data.profession}
-				defaultOption='Choose your profession...'
-				onChangeSelect={handleChange}
-				data={professions}
-				error={errors['profession']}
+                valueSelect={data.profession}
+                defaultOption="Choose your profession..."
+                onChangeSelect={handleChange}
+                data={professions}
+                error={errors["profession"]}
+            />
+            <RadioField
+                options={[
+                    { name: "Male", value: "male" },
+                    { name: "Female", value: "female" },
+                    { name: "Others", value: "others" }
+                ]}
+                label='Sex:'
+                name='radio'
+                value={data.radio}
+                onChange={handleChange}
             />
             <button
                 type="submit"
