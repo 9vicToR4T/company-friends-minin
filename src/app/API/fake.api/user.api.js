@@ -2,32 +2,32 @@ import { professionsObject as professions } from "./professions";
 const qualities = {
     tedious: {
         _id: "67rdca3eeb7f6fgeed471198",
-        name: "Нудила",
+        name: "Tedious",
         color: "primary"
     },
     strange: {
         _id: "67rdca3eeb7f6fgeed471100",
-        name: "Странный",
+        name: "Strange",
         color: "secondary"
     },
     buller: {
         _id: "67rdca3eeb7f6fgeed4711012",
-        name: "Троль",
+        name: "Buller",
         color: "success"
     },
     alcoholic: {
         _id: "67rdca3eeb7f6fgeed471101",
-        name: "Алкоголик",
+        name: "Alcoholic",
         color: "danger"
     },
     handsome: {
         _id: "67rdca3eeb7f6fgeed471102",
-        name: "Красавчик",
+        name: "Handsome",
         color: "info"
     },
     uncertain: {
         _id: "67rdca3eeb7f6fgeed471103",
-        name: "Неуверенный",
+        name: "Uncertain",
         color: "dark"
     }
 };

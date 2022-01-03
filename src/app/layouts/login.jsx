@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import LoginForm from "../components/ui/loginForm";
 import RegisterForm from "../components/ui/registerForm";
 
@@ -25,12 +25,12 @@ const Login = () => {
                             <RegisterForm />
                             <div className="mt-3">
                                 Have an account?{" "}
-                                {/* <a role="button" onClick={handleFormType}>
+                                <a role="button" onClick={handleFormType}>
                                     Login
-                                </a> */}
-                                <Link to="/login" onClick={handleFormType}>
+                                </a>
+                                {/* <Link to="/login" onClick={handleFormType}>
                                     Login
-                                </Link>
+                                </Link> */}
                             </div>
                         </>
                     )
@@ -40,15 +40,15 @@ const Login = () => {
                             <LoginForm />
                             <div className="mt-3">
                                 Do not have an account?{" "}
-                                {/* <a role="button" onClick={handleFormType}>
+                                <a role="button" onClick={handleFormType}>
                                     Register
-                                </a> */}
-                                <Link
+                                </a>
+                                {/* <Link
                                     to="/login/register"
                                     onClick={handleFormType}
                                 >
                                     Register
-                                </Link>
+                                </Link> */}
                             </div>
                         </>
                     )}

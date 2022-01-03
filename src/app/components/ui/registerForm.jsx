@@ -4,29 +4,39 @@ import TextForm from "../common/form/textForm";
 import api from "../../API";
 import SelectField from "../common/form/selectField";
 import RadioField from "../common/form/radioField";
+import MultiSelectField from "../common/form/multiSelectField";
+import CheckBoxField from "../common/form/checkBoxField";
 
 const RegisterForm = () => {
     const [data, setData] = useState({
         email: "",
         password: "",
         profession: "",
-        radio: 'male'
+        radio: "male",
+        qualities: [],
+        licence: false
     });
-    console.log(data);
+    console.log(data, "data");
+
     const [errors, setErrors] = useState({});
     const [professions, setProfessions] = useState({});
+    const [qualities, setQualities] = useState({});
+
     useEffect(() => {
         api.professions.fetchAll().then((data) => setProfessions(data));
+        api.qualities.fetchAll().then((data) => setQualities(data));
     }, []);
+
     useEffect(() => {
         validate();
     }, [data]);
 
-    const handleChange = (e) => {
-        setData((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }));
+    const handleChange = (objectTarget) => {
+        // initial foloseam event, insa pentru a lucra si cu masive am creat in fiecare component inca un nivel de abstractie(handleChange), care acolo prelucreaza datele si ofera aici obiectul gata
+            setData((prevState) => ({
+                ...prevState,
+                [objectTarget.name]: objectTarget.value
+            }));
     };
     const validateConfig = {
         email: {
@@ -55,6 +65,11 @@ const RegisterForm = () => {
         profession: {
             isRequired: {
                 message: "Choose your profession"
+            }
+        },
+        licence: {
+            isRequired: {
+                message: "For use our services, you must to accept licence's rules!"
             }
         }
     };
@@ -107,11 +122,18 @@ const RegisterForm = () => {
                     { name: "Female", value: "female" },
                     { name: "Others", value: "others" }
                 ]}
-                label='Sex:'
-                name='radio'
+                label="Sex:"
+                name="radio"
                 value={data.radio}
                 onChange={handleChange}
             />
+            <MultiSelectField
+                label="Select your qualities"
+                onChange={handleChange}
+                options={qualities}
+                name="qualities"
+            />
+            <CheckBoxField name="licence" value={data.licence} onChange={handleChange} error={errors.licence}>Accept licence rights!</CheckBoxField>
             <button
                 type="submit"
                 className="btn btn-primary w-100 ma-0 mt-3"

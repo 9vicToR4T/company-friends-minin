@@ -22,6 +22,9 @@ const SelectField = ({
     const handleaSelectClasses = () => {
         return "form-select " + `${error ? "is-invalid" : ""}`;
     };
+      const handleChange = (e) => {
+          onChangeSelect({ name: name, value: e.target.value });
+      };
 
     return (
         <div className="mt-4">
@@ -33,7 +36,7 @@ const SelectField = ({
                 id="validationCustom04"
                 name={name}
                 value={valueSelect}
-                onChange={onChangeSelect}
+                onChange={handleChange}
             >
                 <option disabled value="">
                     {defaultOption}

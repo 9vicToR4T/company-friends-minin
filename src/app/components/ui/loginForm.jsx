@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { validator } from "../../utils/validator";
+import CheckBoxField from "../common/form/checkBoxField";
 import TextForm from "../common/form/textForm";
 
 const LoginForm = () => {
     const [data, setData] = useState({
         email: "",
-        password: ""
+        password: "",
+        stayOn: false
     });
+    console.log(data, 'login data');
 
     const [errors, setErrors] = useState({});
+
     useEffect(() => {
         validate();
     }, [data]);
 
-    const handleChange = (e) => {
+    const handleChange = (objectTarget) => {
         setData((prevState) => ({
             ...prevState,
-            [e.target.name]: e.target.value
+            [objectTarget.name]: objectTarget.value
         }));
     };
     const validateConfig = {
@@ -54,6 +58,7 @@ const LoginForm = () => {
 
     const handleSubmitForm = (e) => {
         e.preventDefault();
+
         // const isValid = validate();
         // if (!isValid) {
         //     return;
@@ -77,31 +82,7 @@ const LoginForm = () => {
                 error={errors["password"]}
                 onChange={handleChange}
             />
-            {/* <div className="mt-4">
-                <label htmlFor="validationCustom04" className="form-label">
-                    Profession:
-                </label>
-                <select
-                    className="form-select"
-                    id="validationCustom04"
-                    name="professions"
-                    value={data.profession}
-                    onChange={handleChange}
-                >
-                    <option selected={data.profession === ""} disabled value="">
-                        Choose...
-                    </option>
-                    {professions &&
-                        Object.keys(professions).map((professionName) => (
-                            <option
-                                key={professions[professionName]._id}
-                                value={professions[professionName].name}
-                            >
-                                {professions[professionName].name}
-                            </option>
-                        ))}
-                </select>
-            </div> */}
+            <CheckBoxField name='stayOn' value={data.stayOn} onChange={handleChange} > Save my password!</CheckBoxField>
             <div>
                 <button
                     type="submit"
