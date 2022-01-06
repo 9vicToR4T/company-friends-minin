@@ -10,10 +10,11 @@ const TextForm = ({ label, name, type, value, error, onChange }) => {
         return "form-control " + `${error ? "is-invalid" : ""}`;
     };
       const handleChange = (e) => {
+          console.log(e.target.value);
           onChange({ name: name, value: e.target.value });
       };
     return (
-        <div className="d-flex flex-column input-group has-validation mt-4">
+        <div className="d-flex flex-column input-group has-validation mt-4 ">
             <label htmlFor={name}>{label}</label>
             <div className="input-group has-validation">
                 <input

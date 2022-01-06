@@ -45,9 +45,7 @@ const UsersListPage = () => {
     };
 
     const [selectedProf, setSelectedProf] = useState();
-    const getInput = document.getElementById("searchInput");
     const handleProfessionSelect = (itemObj) => {
-        getInput.value = "";
         setSelectedProf(itemObj);
     };
 
@@ -70,7 +68,6 @@ const UsersListPage = () => {
     const usersCrop = paginate(sortedUsers, currentPage, pageSize);
 
     const handleCleanFilters = () => {
-        getInput.value = "";
         setSearchByName();
         setSelectedProf();
     };

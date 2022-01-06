@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 const TableHeader = ({ columns, onSort, selectedSort }) => {
     const handleSort = (item) => {
         if (item === selectedSort.path) {

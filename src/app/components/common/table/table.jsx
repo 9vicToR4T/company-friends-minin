@@ -8,7 +8,6 @@ const Table = ({
     selectedSort,
     columns,
     data,
-    onDeleteBtn,
     children
 }) => {
     return (
@@ -16,7 +15,7 @@ const Table = ({
             {children || (
                 <>
                     <TableHeader {...{ onSort, selectedSort, columns }} />
-                    <TableBody {...{ columns, data, onDeleteBtn }} />
+                    <TableBody {...{ columns, data }} />
                 </>
             )}
         </table>
@@ -28,7 +27,6 @@ Table.propTypes = {
     selectedSort: PropTypes.object,
     columns: PropTypes.object,
     data: PropTypes.array,
-    onDeleteBtn: PropTypes.func,
     children: PropTypes.array
 };
 export default Table;

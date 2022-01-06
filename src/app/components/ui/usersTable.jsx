@@ -28,6 +28,8 @@ const UsersTable = ({
         profession: { path: "profession.name", name: "Profession" },
         completedMeetings: { path: "completedMeetings", name: "Meetings" },
         rate: { path: "rate", name: "Rate" },
+        sex: { path: 'sex', name: 'Sex' },
+        email: { path: 'email', name: 'Email' },
         bookmark: {
             path: "bookMark",
             name: "Selected",

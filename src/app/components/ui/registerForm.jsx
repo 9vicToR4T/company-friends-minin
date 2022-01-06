@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { validator } from "../../utils/validator";
+import { validateConfig } from '../../utils/validateConfig';
 import TextForm from "../common/form/textForm";
 import api from "../../API";
 import SelectField from "../common/form/selectField";
@@ -16,7 +17,6 @@ const RegisterForm = () => {
         qualities: [],
         licence: false
     });
-    console.log(data, "data");
 
     const [errors, setErrors] = useState({});
     const [professions, setProfessions] = useState({});
@@ -37,41 +37,6 @@ const RegisterForm = () => {
                 ...prevState,
                 [objectTarget.name]: objectTarget.value
             }));
-    };
-    const validateConfig = {
-        email: {
-            isRequired: {
-                message: "Write your email"
-            },
-            isEmail: {
-                message: "Email is wrong"
-            }
-        },
-        password: {
-            isRequired: {
-                message: "Write your password"
-            },
-            isCapitalLetter: {
-                message: "Must have a capital letter"
-            },
-            num: {
-                message: "Must have a number"
-            },
-            passwordLength: {
-                message: "Minimum 8 caracters",
-                value: 8
-            }
-        },
-        profession: {
-            isRequired: {
-                message: "Choose your profession"
-            }
-        },
-        licence: {
-            isRequired: {
-                message: "For use our services, you must to accept licence's rules!"
-            }
-        }
     };
 
     const validate = () => {

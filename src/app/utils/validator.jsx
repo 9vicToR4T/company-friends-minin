@@ -7,7 +7,7 @@ export function validator(data, config) {
                 if (typeof data === "boolean") {
                     validateCase = !data;
                 } else {
-                    validateCase = data.trim() === "";
+                    validateCase = data === "";
                 }
                 break;
             }
