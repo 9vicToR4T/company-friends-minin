@@ -10,7 +10,6 @@ const TextForm = ({ label, name, type, value, error, onChange }) => {
         return "form-control " + `${error ? "is-invalid" : ""}`;
     };
       const handleChange = (e) => {
-          console.log(e.target.value);
           onChange({ name: name, value: e.target.value });
       };
     return (

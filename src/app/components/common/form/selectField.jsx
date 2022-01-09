@@ -18,7 +18,6 @@ const SelectField = ({
                   value: data[professionName]._id
               }))
             : data;
-
     const handleaSelectClasses = () => {
         return "form-select " + `${error ? "is-invalid" : ""}`;
     };

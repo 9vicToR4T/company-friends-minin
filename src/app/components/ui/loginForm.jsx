@@ -9,7 +9,6 @@ const LoginForm = () => {
         password: "",
         stayOn: false
     });
-    console.log(data, 'login data');
 
     const [errors, setErrors] = useState({});
 

@@ -17,7 +17,6 @@ const EditUserDetails = ({ user }) => {
         radio: "male",
         qualities: user.qualities
     });
-    console.log(data, "data");
 
     const [errors, setErrors] = useState({});
     const [professions, setProfessions] = useState({});

@@ -6,6 +6,7 @@ const MultiSelectField = ({ defaultValue, label, options, name, onChange }) => {
     const handleChange = (value) => {
         onChange({ name: name, value: value });
     };
+    console.log(defaultValue);
     const defQualities = Object.keys(defaultValue).map((obj) => ({
         label: defaultValue[obj].name,
         value: defaultValue[obj]._id
