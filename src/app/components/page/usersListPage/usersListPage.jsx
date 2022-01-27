@@ -9,17 +9,15 @@ import UsersTable from "../../ui/usersTable";
 import _ from "lodash";
 import LoadingElement from "../../common/loadingComponent";
 import SearchForm from "../../ui/searchForm";
+import { useUser } from "../../../hooks/useUser";
 
 const UsersListPage = () => {
-    const [users, setUsers] = useState();
+    const { users } = useUser();
 
-    useEffect(() => {
-        api.users.fetchAll().then((data) => setUsers(data));
-    }, []);
-    const handleDeleteBtn = (e) => {
-        const { target } = e;
+    const handleDeleteBtn = ({ target }) => {
         const getId = target.dataset.id;
-        setUsers(users.filter((user) => getId !== user["_id"]));
+        // setUsers(users.filter((user) => getId !== user["_id"]));
+        console.log(getId);
     };
 
     const handleBookMarkState = (id) => {
@@ -30,10 +28,12 @@ const UsersListPage = () => {
                 return user;
             }
         });
-        setUsers(newArray);
+        // setUsers(newArray);
+        console.log(newArray);
     };
 
     const pageSize = 4;
+
     const [professions, setProfessions] = useState();
     useEffect(() => {
         api.professions.fetchAll().then((data) => setProfessions(data));

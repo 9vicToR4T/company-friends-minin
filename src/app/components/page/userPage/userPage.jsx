@@ -14,7 +14,7 @@ const UserPage = ({ userId }) => {
     const [users, setUsers] = useState([]);
     const history = useHistory();
     const match = useRouteMatch();
-    console.log(match, 'match');
+    console.log(match, "match");
     console.log(history);
     userId &&
         useEffect(() => {
@@ -23,7 +23,7 @@ const UserPage = ({ userId }) => {
         }, [history.location.pathname]);
 
     useEffect(() => {
-        console.log('set users');
+        console.log("set users");
         api.users.fetchAll().then((usersData) => setUsers(usersData));
     }, []);
 

@@ -81,7 +81,14 @@ const LoginForm = () => {
                 error={errors["password"]}
                 onChange={handleChange}
             />
-            <CheckBoxField name='stayOn' value={data.stayOn} onChange={handleChange} > Save my password!</CheckBoxField>
+            <CheckBoxField
+                name="stayOn"
+                value={data.stayOn}
+                onChange={handleChange}
+            >
+                {" "}
+                Save my password!
+            </CheckBoxField>
             <div>
                 <button
                     type="submit"

@@ -4,12 +4,12 @@ const BookMark = ({ status, onChangeBookMark }) => {
     return (
         <button onClick={onChangeBookMark}>
             {status
-                ? (
-                    <i className="bi bi-bookmark-fill"></i>
-                )
-                : (
-                    <i className="bi bi-bookmark"></i>
-                )}
+            ? (
+                <i className="bi bi-bookmark-fill"></i>
+            )
+            : (
+                <i className="bi bi-bookmark"></i>
+            )}
         </button>
     );
 };

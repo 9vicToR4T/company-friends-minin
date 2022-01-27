@@ -9,9 +9,9 @@ const TextForm = ({ label, name, type, value, error, onChange }) => {
     const handleaInputClasses = () => {
         return "form-control " + `${error ? "is-invalid" : ""}`;
     };
-      const handleChange = (e) => {
-          onChange({ name: name, value: e.target.value });
-      };
+    const handleChange = (e) => {
+        onChange({ name: name, value: e.target.value });
+    };
     return (
         <div className="d-flex flex-column input-group has-validation mt-4 ">
             <label htmlFor={name}>{label}</label>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { validator } from "../../utils/validator";
-import { validateConfig } from '../../utils/validateConfig';
+import { validateConfig } from "../../utils/validateConfig";
 import TextForm from "../common/form/textForm";
 import api from "../../API";
 import SelectField from "../common/form/selectField";
@@ -33,10 +33,10 @@ const RegisterForm = () => {
 
     const handleChange = (objectTarget) => {
         // initial foloseam event, insa pentru a lucra si cu masive am creat in fiecare component inca un nivel de abstractie(handleChange), care acolo prelucreaza datele si ofera aici obiectul gata
-            setData((prevState) => ({
-                ...prevState,
-                [objectTarget.name]: objectTarget.value
-            }));
+        setData((prevState) => ({
+            ...prevState,
+            [objectTarget.name]: objectTarget.value
+        }));
     };
 
     const validate = () => {
@@ -93,13 +93,20 @@ const RegisterForm = () => {
                 onChange={handleChange}
             />
             <MultiSelectField
-            defaultValue={data.qualities}
+                defaultValue={data.qualities}
                 label="Select your qualities"
                 onChange={handleChange}
                 options={qualities}
                 name="qualities"
             />
-            <CheckBoxField name="licence" value={data.licence} onChange={handleChange} error={errors.licence}>Accept licence rights!</CheckBoxField>
+            <CheckBoxField
+                name="licence"
+                value={data.licence}
+                onChange={handleChange}
+                error={errors.licence}
+            >
+                Accept licence rights!
+            </CheckBoxField>
             <button
                 type="submit"
                 className="btn btn-primary w-100 ma-0 mt-3"

@@ -64,7 +64,7 @@ const NewComment = ({
                                     <p className="mb-1">
                                         {name}
                                         <span className="small ms-3">
-                                            {'posted ' + timeSince(+createdAt)}
+                                            {"posted " + timeSince(+createdAt)}
                                         </span>
                                     </p>
                                     <button

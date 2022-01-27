@@ -5,6 +5,7 @@ import Btn from "../common/buttonDelete";
 import Qualities from "../ui/qualities";
 import { Link } from "react-router-dom";
 import Table from "../common/table";
+import Profession from "./profession";
 
 const UsersTable = ({
     users,
@@ -25,11 +26,14 @@ const UsersTable = ({
             name: "Qualities",
             component: (user) => <Qualities qualities={user.qualities} />
         },
-        profession: { path: "profession.name", name: "Profession" },
+        profession: {
+            name: "Profession",
+            component: (user) => <Profession id={user.profession} />
+        },
         completedMeetings: { path: "completedMeetings", name: "Meetings" },
         rate: { path: "rate", name: "Rate" },
-        sex: { path: 'sex', name: 'Sex' },
-        email: { path: 'email', name: 'Email' },
+        sex: { path: "sex", name: "Sex" },
+        email: { path: "email", name: "Email" },
         bookmark: {
             path: "bookMark",
             name: "Selected",

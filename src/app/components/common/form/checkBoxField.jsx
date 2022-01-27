@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 const CheckBoxField = ({ name, value, onChange, children, error }) => {
     const handleChange = () => {
         onChange({ name: name, value: !value });
-	};
-	const handleaSelectClasses = () => {
+    };
+    const handleaSelectClasses = () => {
         return "form-check-input " + `${error ? "is-invalid" : ""}`;
     };
 
@@ -34,8 +34,8 @@ CheckBoxField.propTypes = {
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
-	]),
-	error: PropTypes.string
+    ]),
+    error: PropTypes.string
 };
 
 export default CheckBoxField;
