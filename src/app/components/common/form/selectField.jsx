@@ -41,8 +41,8 @@ const SelectField = ({
                     {defaultOption}
                 </option>
                 {isArray.map((obj) => (
-                    <option key={obj.value + obj.name} value={obj.name}>
-                        {obj.name}
+                    <option key={obj.value + obj.label} value={obj.value}>
+                        {obj.label}
                     </option>
                 ))}
             </select>

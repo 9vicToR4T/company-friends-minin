@@ -8,20 +8,24 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ProfessionProvider } from "./hooks/useProfession";
 import { QualitiesProvider } from "./hooks/useQualities";
+import { AuthProvider } from "./hooks/useAuth";
 
 const App = () => {
     return (
         <Router>
-            <NavBar />
-            <Switch>
-                <Route path="/" exact component={Main} />
+            <AuthProvider>
+                <NavBar />
                 <ProfessionProvider>
                     <QualitiesProvider>
-                        <Route path="/login" component={Login} />
-                        <Route path="/users/:userId?" component={Users} />
+                        <Switch>
+                            <Route path="/" exact component={Main} />
+                            <Route path="/login" component={Login} />
+                            <Route path="/users/:userId?" component={Users} />
+                        </Switch>
                     </QualitiesProvider>
                 </ProfessionProvider>
-            </Switch>
+            </AuthProvider>
+
             <ToastContainer />
         </Router>
     );

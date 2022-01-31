@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 import { validator } from "../../utils/validator";
 import CheckBoxField from "../common/form/checkBoxField";
 import TextForm from "../common/form/textForm";
 
 const LoginForm = () => {
+    const history = useHistory();
     const [data, setData] = useState({
         email: "",
         password: "",
         stayOn: false
     });
+
+    const { logIn } = useAuth();
 
     const [errors, setErrors] = useState({});
 
@@ -55,8 +60,16 @@ const LoginForm = () => {
     };
     const isValid = Object.keys(errors).length === 0;
 
-    const handleSubmitForm = (e) => {
+    const handleSubmitForm = async (e) => {
         e.preventDefault();
+        console.log(data, "data in handle form");
+        try {
+            await logIn(data);
+            history.push("/");
+        } catch (error) {
+            setErrors(error);
+            console.log(error);
+        }
 
         // const isValid = validate();
         // if (!isValid) {
