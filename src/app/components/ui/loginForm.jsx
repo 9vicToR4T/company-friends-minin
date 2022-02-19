@@ -62,13 +62,15 @@ const LoginForm = () => {
 
     const handleSubmitForm = async (e) => {
         e.preventDefault();
-        console.log(data, "data in handle form");
         try {
             await logIn(data);
-            history.push("/");
+            history.push(
+                history.location.state
+                    ? history.location.state.from.pathname
+                    : "/"
+            );
         } catch (error) {
             setErrors(error);
-            console.log(error);
         }
 
         // const isValid = validate();

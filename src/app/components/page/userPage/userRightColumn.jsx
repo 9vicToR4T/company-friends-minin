@@ -1,36 +1,19 @@
 import React, { useState, useEffect } from "react";
-import SelectField from "../../common/form/selectField";
 import PropTypes from "prop-types";
 import TextAreaField from "../../common/form/textareaField";
-import api from "../../../API";
 import NewComment from "./newComment";
+import { useComments } from "../../../hooks/useComments";
+import { validator } from "../../../utils/validator";
+import _ from "lodash";
 
 const UserRightColumn = ({ user, users }) => {
-    const callApiComments = api.comments;
-    const [data, setData] = useState({
-        name: "",
-        pageId: user._id,
-        userId: "",
-        content: ""
-    });
-
-    if (data.name !== "") {
-        const user = users && users.find((ob) => ob.name === data.name);
-        data.userId = user._id;
-    }
-
-    // const [comments, setComments] = useState([]);
-
-    const [userComments, setUserComments] = useState([]);
-
-    user &&
-        useEffect(() => {
-            // api.comments.fetchAll().then((com) => setComments(com));
-            callApiComments
-                .fetchCommentsForUser(user._id)
-                .then((c) => setUserComments(c))
-                .catch((err) => console.error(err));
-        }, [data]);
+    const { comments, createComment, isLoading, removeComment } = useComments();
+    const sortComments = _.orderBy(comments, ["createdAt"], "desc");
+    const [data, setData] = useState({});
+    const [error, setError] = useState({});
+    useEffect(() => {
+        validate(data);
+    }, [data]);
 
     const handleChange = (objectTarget) => {
         setData((prevState) => ({
@@ -39,6 +22,18 @@ const UserRightColumn = ({ user, users }) => {
         }));
     };
 
+    const validateConfig = {
+        content: {
+            commentLength: {
+                message: "Comment must have minim 3 characters",
+                value: 3
+            }
+        }
+    };
+    const validate = (data) => {
+        const errors = validator(data, validateConfig);
+        setError(errors);
+    };
     const showUserComments = (arrayOfComments) => {
         return (
             <div className="card mb-3">
@@ -47,13 +42,9 @@ const UserRightColumn = ({ user, users }) => {
                     <hr />
 
                     {arrayOfComments.map((com) => {
-                        const author =
-                            users && users.find((ob) => ob._id === com.userId);
-
                         return (
                             <NewComment
                                 key={com._id}
-                                author={author}
                                 com={com}
                                 onRemove={handleRemoveComment}
                             />
@@ -64,24 +55,16 @@ const UserRightColumn = ({ user, users }) => {
         );
     };
 
-    const handleAddComment = () => {
-        callApiComments.add(data);
-        setData({
-            name: "",
-            pageId: user._id,
-            userId: "",
-            content: ""
-        });
+    const handleAddComment = (data) => {
+        createComment(data);
+        setData({});
     };
     const handleRemoveComment = (id) => {
-        callApiComments.remove(id);
-        setData({
-            name: "",
-            pageId: user._id,
-            userId: "",
-            content: ""
-        });
+        removeComment(id);
     };
+    useEffect(() => {
+        validate(data);
+    }, [data]);
     return (
         <div className="col-md-8">
             <div className="card mb-2">
@@ -89,34 +72,29 @@ const UserRightColumn = ({ user, users }) => {
                     <div>
                         <h2>New comment</h2>
                         <div className="mb-4">
-                            <SelectField
-                                label="Name"
-                                name="name"
-                                valueSelect={data.name}
-                                defaultOption="Choose your name"
-                                onChangeSelect={handleChange}
-                                data={users}
-                            />
-                        </div>
-                        <div className="mb-4">
                             <TextAreaField
                                 label="New Comment"
                                 name="content"
-                                value={data.content}
+                                value={data.content || ""}
                                 onChange={handleChange}
+                                error={error["content"]}
                             />
                         </div>
                         <button
                             className="btn btn-warning"
-                            onClick={() => handleAddComment()}
-                            disabled={data.name === "" || data.comment === ""}
+                            onClick={() => handleAddComment(data)}
+                            disabled={
+                                !data?.content || data?.content.length < 3
+                            }
                         >
                             Post new comment
                         </button>
                     </div>
                 </div>
             </div>
-            {userComments.length > 0 && showUserComments(userComments)}
+            {sortComments.length > 0 &&
+                !isLoading &&
+                showUserComments(sortComments)}
         </div>
     );
 };

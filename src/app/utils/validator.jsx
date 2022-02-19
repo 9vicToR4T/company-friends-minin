@@ -30,6 +30,14 @@ export function validator(data, config) {
                 validateCase = data.length < config.value;
                 break;
             }
+            case "nameLength": {
+                validateCase = data.length < config.value;
+                break;
+            }
+            case "commentLength": {
+                validateCase = data.length < config.value;
+                break;
+            }
         }
         if (validateCase) return config.message;
     }

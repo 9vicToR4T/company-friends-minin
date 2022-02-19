@@ -36,8 +36,12 @@ export const UserProvider = ({ children }) => {
         if (error !== null) toast.error(error);
         setError(null);
     }, [error]);
+
+    function getUserById(userId) {
+        return users.find((u) => u._id === userId);
+    }
     return (
-        <UserContext.Provider value={{ users }}>
+        <UserContext.Provider value={{ users, getUserById }}>
             {!isLoading ? children : <h2>Loading users ...</h2>}
         </UserContext.Provider>
     );

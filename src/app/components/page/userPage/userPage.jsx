@@ -1,38 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import api from "../../../API";
 import LoadingElement from "../../common/loadingComponent";
-// import Qualities from "../../ui/qualities/qualities";
-// import LoadingElement from "../../common/loadingComponent";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import EditUserDetails from "../editUserDetails/editUserDetails";
 import UserLeftColumn from "./userLeftColumn";
 import UserRightColumn from "./userRightColumn";
+import { useUser } from "../../../hooks/useUser";
+import { CommentsProvider } from "../../../hooks/useComments";
+import { useAuth } from "../../../hooks/useAuth";
 
 const UserPage = ({ userId }) => {
-    const [user, setUser] = useState();
-    const [users, setUsers] = useState([]);
+    const { currentUser } = useAuth();
+    console.log(currentUser, "current");
+    const { users, getUserById } = useUser();
+    const user = getUserById(userId);
     const history = useHistory();
+    console.log(history.location.pathname.includes("edit"));
     const match = useRouteMatch();
     console.log(match, "match");
-    console.log(history);
-    userId &&
-        useEffect(() => {
-            console.log("set user");
-            api.users.getById(userId).then((userData) => setUser(userData));
-        }, [history.location.pathname]);
-
-    useEffect(() => {
-        console.log("set users");
-        api.users.fetchAll().then((usersData) => setUsers(usersData));
-    }, []);
 
     const renderInfoUser = (user) => {
         return (
             <div className="container">
-                <div className="row gutters-sm">
+                <div className="row gutters-sm pt-5">
                     <UserLeftColumn user={user} />
-                    <UserRightColumn user={user} users={users} />
+                    <CommentsProvider>
+                        <UserRightColumn user={user} users={users} />
+                    </CommentsProvider>
                 </div>
             </div>
         );
@@ -41,16 +35,16 @@ const UserPage = ({ userId }) => {
     if (user) {
         return (
             <>
-                {history.location.pathname === `${match.url}/edit`
+                {history.location.pathname.includes("edit")
                 ? (
-                    <div>
-                        <EditUserDetails user={user} />
-                    </div>
+                    history.location.pathname === `${match.url}/edit` && <EditUserDetails user={currentUser} />
+                )
+                : user
+                ? (
+                    renderInfoUser(user)
                 )
                 : (
-                    <div>
-                        {user ? renderInfoUser(user) : <LoadingElement />}
-                    </div>
+                    <LoadingElement />
                 )}
             </>
         );

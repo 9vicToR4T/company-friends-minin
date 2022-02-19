@@ -18,6 +18,7 @@ const SelectField = ({
                   value: data[professionName]._id
               }))
             : data;
+
     const handleaSelectClasses = () => {
         return "form-select " + `${error ? "is-invalid" : ""}`;
     };
@@ -41,7 +42,7 @@ const SelectField = ({
                     {defaultOption}
                 </option>
                 {isArray.map((obj) => (
-                    <option key={obj.value + obj.label} value={obj.value}>
+                    <option key={obj.value} value={obj.value}>
                         {obj.label}
                     </option>
                 ))}

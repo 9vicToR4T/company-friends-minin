@@ -4,21 +4,17 @@ import SearchStatus from "../../ui/searchStatus";
 import { paginate } from "../../../utils/paginate";
 import { PropTypes } from "prop-types";
 import ListGroup from "../../common/listGroup";
-import api from "../../../API";
 import UsersTable from "../../ui/usersTable";
 import _ from "lodash";
 import LoadingElement from "../../common/loadingComponent";
 import SearchForm from "../../ui/searchForm";
 import { useUser } from "../../../hooks/useUser";
+import { useProfession } from "../../../hooks/useProfession";
+import { useAuth } from "../../../hooks/useAuth";
 
 const UsersListPage = () => {
     const { users } = useUser();
-
-    const handleDeleteBtn = ({ target }) => {
-        const getId = target.dataset.id;
-        // setUsers(users.filter((user) => getId !== user["_id"]));
-        console.log(getId);
-    };
+    const { professions, isLoading: professionsLoading } = useProfession();
 
     const handleBookMarkState = (id) => {
         const newArray = users.map((user) => {
@@ -28,16 +24,10 @@ const UsersListPage = () => {
                 return user;
             }
         });
-        // setUsers(newArray);
         console.log(newArray);
     };
 
     const pageSize = 4;
-
-    const [professions, setProfessions] = useState();
-    useEffect(() => {
-        api.professions.fetchAll().then((data) => setProfessions(data));
-    }, []);
 
     const [currentPage, setcurrenPage] = useState(1);
     const handleChangePage = (indexPage) => {
@@ -54,14 +44,19 @@ const UsersListPage = () => {
     }, [selectedProf]);
 
     const [searchByName, setSearchByName] = useState();
+    const { currentUser } = useAuth();
+    function filterUsers() {
+        const filteredUsers = selectedProf
+            ? users.filter(
+                  (user) =>
+                      JSON.stringify(user["profession"].name) ===
+                      JSON.stringify(selectedProf.name)
+              )
+            : searchByName || users;
+        return filteredUsers.filter((el) => el._id !== currentUser._id);
+    }
 
-    const filteredUsers = selectedProf
-        ? users.filter(
-              (user) =>
-                  JSON.stringify(user["profession"].name) ===
-                  JSON.stringify(selectedProf.name)
-          )
-        : searchByName || users;
+    const filteredUsers = filterUsers(users);
 
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
     const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
@@ -89,7 +84,7 @@ const UsersListPage = () => {
         const count = filteredUsers ? filteredUsers.length : 0;
         return (
             <div className="d-flex ">
-                {professions && (
+                {professions && !professionsLoading && (
                     <div className="flex-column m-3 align-items-end">
                         <ListGroup
                             items={professions}
@@ -115,7 +110,6 @@ const UsersListPage = () => {
                                 onSort={handleSortItems}
                                 selectedSort={sortBy}
                                 onChangeBookMark={handleBookMarkState}
-                                onDeleteBtn={handleDeleteBtn}
                             />
                             <div className="d-flex justify-content-center">
                                 <Pagination

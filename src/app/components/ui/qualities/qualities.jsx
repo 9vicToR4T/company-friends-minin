@@ -3,12 +3,16 @@ import React from "react";
 import { useQualities } from "../../../hooks/useQualities";
 
 const Qualities = ({ id }) => {
-    const { getQuality } = useQualities();
+    const { getQuality, isLoading } = useQualities();
     const q = getQuality(id);
-    return (
+    return !isLoading
+    ? (
         <span className={"badge m-1 bg-" + q.color} key={q._id}>
             {q.name}
         </span>
+    )
+    : (
+        "loading.."
     );
 };
 Qualities.propTypes = {

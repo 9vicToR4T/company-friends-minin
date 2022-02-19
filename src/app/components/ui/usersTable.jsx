@@ -1,7 +1,6 @@
 import React from "react";
 import { PropTypes } from "prop-types";
 import BookMark from "../common/bookMark";
-import Btn from "../common/buttonDelete";
 import Qualities from "../ui/qualities";
 import { Link } from "react-router-dom";
 import Table from "../common/table";
@@ -9,7 +8,6 @@ import Profession from "./profession";
 
 const UsersTable = ({
     users,
-    onDeleteBtn,
     onSort,
     selectedSort,
     onChangeBookMark
@@ -43,9 +41,6 @@ const UsersTable = ({
                     onChangeBookMark={() => onChangeBookMark(user._id)}
                 />
             )
-        },
-        delete: {
-            component: (user) => <Btn id={user._id} onDeleteBtn={onDeleteBtn} />
         }
     };
 
@@ -60,7 +55,6 @@ const UsersTable = ({
 };
 UsersTable.propTypes = {
     users: PropTypes.array,
-    onDeleteBtn: PropTypes.func,
     onSort: PropTypes.func.isRequired,
     selectedSort: PropTypes.object.isRequired,
     onChangeBookMark: PropTypes.func

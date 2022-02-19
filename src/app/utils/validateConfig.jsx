@@ -1,15 +1,24 @@
 export const validateConfig = {
-    name: {
-        isRequired: {
-            message: "Write name correct"
-        }
-    },
+    // name: {
+    //     isRequired: {
+    //         message: "Write name correct"
+    //     }
+    // },
     email: {
         isRequired: {
             message: "Write your email"
         },
         isEmail: {
             message: "Email is wrong"
+        }
+    },
+    name: {
+        isRequired: {
+            message: "Write your name"
+        },
+        nameLength: {
+            message: "Name must have minim 3 characters",
+            value: 3
         }
     },
     password: {

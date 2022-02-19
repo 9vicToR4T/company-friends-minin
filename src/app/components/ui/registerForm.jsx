@@ -17,6 +17,7 @@ const RegisterForm = () => {
         email: "",
         password: "",
         profession: "",
+        name: "",
         radio: "male",
         qualities: [],
         licence: false
@@ -86,6 +87,14 @@ const RegisterForm = () => {
                 type="password"
                 value={data.value}
                 error={errors["password"]}
+                onChange={handleChange}
+            />
+            <TextForm
+                label="Name"
+                name="name"
+                type="text"
+                value={data.name}
+                error={errors["name"]}
                 onChange={handleChange}
             />
             <SelectField

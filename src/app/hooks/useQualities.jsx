@@ -12,8 +12,7 @@ export const useQualities = () => {
 export const QualitiesProvider = ({ children }) => {
     const [qualitiesList, setQualitiesList] = useState([]);
     const [isLoading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
-
+    const [error, setError] = useState(null);
     useEffect(() => {
         getQualitiesList();
     }, []);
@@ -33,6 +32,7 @@ export const QualitiesProvider = ({ children }) => {
     }
 
     function errorCatcher(error) {
+        console.log(error, "message");
         const { message } = error.result.data;
         setError(message);
     }

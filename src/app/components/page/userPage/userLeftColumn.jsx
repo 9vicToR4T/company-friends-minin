@@ -1,27 +1,35 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useRouteMatch, Link } from "react-router-dom";
+import { useAuth } from "../../../hooks/useAuth";
+import Qualities from "../../ui/qualities/qualities";
+import { useProfession } from "../../../hooks/useProfession";
 
-const UserLeftColumn = (user) => {
-    const qualities = user.user.qualities;
-    const meetings = user.user.completedMeetings;
+const UserLeftColumn = ({ user }) => {
     const match = useRouteMatch();
+    const { currentUser } = useAuth();
+    const { getProfession, isLoading } = useProfession();
+    const id = user.profession;
+    const userProfession = getProfession(id);
     return (
         <div className="col-md-4 mb-3">
             <div className="card mb-3">
                 <div className="card-body">
-                    <Link to={`${match.url}/edit`}>
-                        <button
-                            className="
+                    {currentUser._id === user._id && (
+                        <Link to={`${match.url}/edit`}>
+                            <button
+                                className="
                                     position-absolute
                                     top-0
                                     end-0
 									btn btn-light btn-sm
                                 "
-                        >
-                            <i className="bi bi-gear"></i>
-                        </button>
-                    </Link>
+                            >
+                                <i className="bi bi-gear"></i>
+                            </button>
+                        </Link>
+                    )}
+
                     <div
                         className="
                                     d-flex
@@ -32,18 +40,14 @@ const UserLeftColumn = (user) => {
                                 "
                     >
                         <img
-                            src={`https://avatars.dicebear.com/api/avataaars/${(
-                                Math.random() + 1
-                            )
-                                .toString(36)
-                                .substring(7)}.svg`}
+                            src={user.image}
                             className="rounded-circle"
                             width="150"
                         />
                         <div className="mt-3">
-                            <h4>{user.user.name}</h4>
+                            <h4>{user.name}</h4>
                             <p className="text-secondary mb-1">
-                                {user.user.profession.name}
+                                {!isLoading && userProfession.name}
                             </p>
                             <div className="text-muted">
                                 <i
@@ -60,7 +64,7 @@ const UserLeftColumn = (user) => {
                                             "
                                     role="button"
                                 ></i>
-                                <span className="ms-2">{user.user.rate}</span>
+                                <span className="ms-2">{user.rate}</span>
                             </div>
                         </div>
                     </div>
@@ -81,13 +85,8 @@ const UserLeftColumn = (user) => {
                         <span>Qualities</span>
                     </h5>
                     <p className="card-text">
-                        {Object.keys(qualities).map((el) => (
-                            <span
-                                key={qualities[el]._id}
-                                className={`badge m-1 bg-${qualities[el].color}`}
-                            >
-                                {qualities[el].name}
-                            </span>
+                        {user.qualities.map((qualId) => (
+                            <Qualities key={qualId} id={qualId} />
                         ))}
                     </p>
                 </div>
@@ -107,7 +106,7 @@ const UserLeftColumn = (user) => {
                             <span>Completed meetings</span>
                         </h5>
 
-                        <h1 className="display-1">{meetings}</h1>
+                        <h1 className="display-1">{user.completedMeetings}</h1>
                     </div>
                 </div>
             </div>
