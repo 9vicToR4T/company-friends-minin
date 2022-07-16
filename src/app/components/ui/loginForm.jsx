@@ -1,118 +1,94 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
-import { validator } from "../../utils/validator";
+import React, { useEffect, useState } from "react";
+import { validator } from "../../utils/ validator";
+import TextField from "../common/form/textField";
 import CheckBoxField from "../common/form/checkBoxField";
-import TextForm from "../common/form/textForm";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getAuthErrors, login } from "../../store/users";
 
 const LoginForm = () => {
-    const history = useHistory();
     const [data, setData] = useState({
         email: "",
         password: "",
         stayOn: false
     });
-
-    const { logIn } = useAuth();
-
+    const loginError = useSelector(getAuthErrors());
+    const history = useHistory();
+    const dispath = useDispatch();
     const [errors, setErrors] = useState({});
 
-    useEffect(() => {
-        validate();
-    }, [data]);
-
-    const handleChange = (objectTarget) => {
+    const handleChange = (target) => {
         setData((prevState) => ({
             ...prevState,
-            [objectTarget.name]: objectTarget.value
+            [target.name]: target.value
         }));
     };
-    const validateConfig = {
+
+    const validatorConfog = {
         email: {
             isRequired: {
-                message: "Write your email"
-            },
-            isEmail: {
-                message: "Email is wrong"
+                message: "Электронная почта обязательна для заполнения"
             }
         },
         password: {
             isRequired: {
-                message: "Write your password"
-            },
-            isCapitalLetter: {
-                message: "Must have a capital letter"
-            },
-            num: {
-                message: "Must have a number"
-            },
-            passwordLength: {
-                message: "Minimum 8 caracters",
-                value: 8
+                message: "Пароль обязателкн для заполнения"
             }
         }
     };
-
+    useEffect(() => {
+        validate();
+    }, [data]);
     const validate = () => {
-        const errors = validator(data, validateConfig);
+        const errors = validator(data, validatorConfog);
         setErrors(errors);
         return Object.keys(errors).length === 0;
     };
     const isValid = Object.keys(errors).length === 0;
 
-    const handleSubmitForm = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        try {
-            await logIn(data);
-            history.push(
-                history.location.state
-                    ? history.location.state.from.pathname
-                    : "/"
-            );
-        } catch (error) {
-            setErrors(error);
-        }
+        const isValid = validate();
+        if (!isValid) return;
+        const redirect = history.location.state
+            ? history.location.state.from.pathname
+            : "/";
 
-        // const isValid = validate();
-        // if (!isValid) {
-        //     return;
-        // }
+        dispath(login({ payload: data, redirect }));
     };
     return (
-        <form onSubmit={handleSubmitForm}>
-            <TextForm
-                label="Email"
+        <form onSubmit={handleSubmit}>
+            <TextField
+                label="Электронная почта"
                 name="email"
-                type="text"
-                value={data.value}
-                error={errors["email"]}
+                value={data.email}
                 onChange={handleChange}
+                error={errors.email}
             />
-            <TextForm
-                label="Password"
-                name="password"
+            <TextField
+                label="Пароль"
                 type="password"
-                value={data.value}
-                error={errors["password"]}
+                name="password"
+                value={data.password}
                 onChange={handleChange}
+                error={errors.password}
             />
             <CheckBoxField
-                name="stayOn"
                 value={data.stayOn}
                 onChange={handleChange}
+                name="stayOn"
             >
-                {" "}
-                Save my password!
+                Оставаться в системе
             </CheckBoxField>
-            <div>
-                <button
-                    type="submit"
-                    className="btn btn-primary w-100 ma-0 mt-3"
-                    disabled={!isValid}
-                >
-                    Send Form
-                </button>
-            </div>
+            {loginError && <p className="text-danger">{loginError}</p>}
+
+            <button
+                type="submit"
+                disabled={!isValid}
+                className="btn btn-primary w-100 mx-auto"
+            >
+                Submit
+            </button>
         </form>
     );
 };

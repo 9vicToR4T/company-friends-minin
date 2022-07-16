@@ -1,33 +1,33 @@
-import { professionsObject as professions } from "./professions";
+import { professionsObject as professions } from "./professions.api";
 const qualities = {
     tedious: {
         _id: "67rdca3eeb7f6fgeed471198",
-        name: "Tedious",
+        name: "Нудила",
         color: "primary"
     },
     strange: {
         _id: "67rdca3eeb7f6fgeed471100",
-        name: "Strange",
+        name: "Странный",
         color: "secondary"
     },
     buller: {
         _id: "67rdca3eeb7f6fgeed4711012",
-        name: "Buller",
+        name: "Троль",
         color: "success"
     },
     alcoholic: {
         _id: "67rdca3eeb7f6fgeed471101",
-        name: "Alcoholic",
+        name: "Алкоголик",
         color: "danger"
     },
     handsome: {
-        _id: "67rdca3eeb7f6fgeed471102",
-        name: "Handsome",
+        _id: "67rdca3eeb7f6fgeed471103",
+        name: "Красавчик",
         color: "info"
     },
     uncertain: {
-        _id: "67rdca3eeb7f6fgeed471103",
-        name: "Uncertain",
+        _id: "67rdca3eeb7f6fgeed471102",
+        name: "Неуверенный",
         color: "dark"
     }
 };
@@ -35,135 +35,111 @@ const qualities = {
 const users = [
     {
         _id: "67rdca3eeb7f6fgeed471815",
-        name: "John Dorian",
-        email: "johndorian@fastcompany.ru",
-        sex: "male",
+        name: "Джон Дориан",
         profession: professions.doctor,
         qualities: [qualities.tedious, qualities.uncertain, qualities.strange],
         completedMeetings: 36,
         rate: 2.5,
-        bookMark: false
+        bookmark: false
     },
     {
         _id: "67rdca3eeb7f6fgeed471816",
-        name: "Koks Koksium",
-        email: "koks@fastcompany.ru",
-        sex: "male",
+        name: "Кокс",
         profession: professions.doctor,
         qualities: [qualities.buller, qualities.handsome, qualities.alcoholic],
         completedMeetings: 15,
         rate: 2.5,
-        bookMark: false
+        bookmark: false
     },
     {
         _id: "67rdca3eeb7f6fgeed471817",
-        name: "Bob Kelso",
-        email: "bobkelso@fastcompany.ru",
-        sex: "male",
+        name: "Боб Келсо",
         profession: professions.doctor,
         qualities: [qualities.buller],
         completedMeetings: 247,
         rate: 3.5,
-        bookMark: false
+        bookmark: false
     },
     {
         _id: "67rdca3eeb7f6fgeed471818",
-        name: "Reichel Green",
-        email: "rachelgreene@fastcompany.ru",
-        sex: "female",
+        name: "Рэйчел Грин",
         profession: professions.waiter,
         qualities: [qualities.uncertain],
         completedMeetings: 148,
         rate: 3.5,
-        bookMark: false
+        bookmark: false
     },
     {
         _id: "67rdca3eeb7f6fgeed471819",
-        name: "Sheldon Kuper",
-        email: "sheldoncooper@fastcompany.ru",
-        sex: "male",
+        name: "Шелдон Купер",
         profession: professions.physics,
         qualities: [qualities.strange, qualities.tedious],
         completedMeetings: 37,
         rate: 4.6,
-        bookMark: false
+        bookmark: false
     },
     {
         _id: "67rdca3eeb7f6fgeed471820",
-        name: "Leonardo DiCaprio",
-        email: "leonardhofstedter@fastcompany.ru",
-        sex: "male",
+        name: "Леонард Хофстедтер",
         profession: professions.physics,
         qualities: [qualities.strange, qualities.uncertain],
         completedMeetings: 147,
         rate: 3.5,
-        bookMark: false
+        bookmark: false
     },
     {
         _id: "67rdca3eeb7f6fgeed471821",
-        name: "Hovard Holovitz",
-        email: "howardwolowitz@fastcompany.ru",
-        sex: "male",
+        name: "Говард Воловиц",
         profession: professions.engineer,
         qualities: [qualities.strange, qualities.tedious],
         completedMeetings: 72,
         rate: 3.5,
-        bookMark: false
+        bookmark: false
     },
     {
         _id: "67rdca3eeb7f6fgeed471822",
-        name: "Niccolo Tesla",
-        email: "nikolatesla@fastcompany.ru",
-        sex: "male",
+        name: "Никола Тесла",
         profession: professions.engineer,
         qualities: [qualities.handsome],
         completedMeetings: 72,
         rate: 5,
-        bookMark: false
+        bookmark: false
     },
     {
         _id: "67rdca3eeb7f6fgeed471823",
-        name: "Monica Beluci",
-        email: "monicageller@fastcompany.ru",
-        sex: "female",
+        name: "Моника Геллер",
         profession: professions.cook,
         qualities: [qualities.strange, qualities.uncertain],
         completedMeetings: 17,
         rate: 4.5,
-        bookMark: false
+        bookmark: false
     },
     {
         _id: "67rdca3eeb7f6fgeed471824",
-        name: "Ratatui",
-        email: "ratatouille@fastcompany.ru",
-        sex: "male",
+        name: "Рататуй",
         profession: professions.cook,
         qualities: [qualities.handsome, qualities.buller],
         completedMeetings: 17,
         rate: 4.5,
-        bookMark: false
+        bookmark: false
     },
     {
         _id: "67rdca3eeb7f6fgeed47181f",
-        name: "John Coffe",
-        email: "joeytribbiani@fastcompany.ru",
-        sex: "male",
+        name: "Джоуи Триббиани",
         profession: professions.actor,
         qualities: [qualities.uncertain, qualities.strange],
         completedMeetings: 434,
         rate: 3.5,
-        bookMark: false
+        bookmark: false
     },
     {
         _id: "67rdca3eeb7f6fgeed47181r",
-        name: "Brad Nonpitt",
-        email: "bradpitt@fastcompany.ru",
-        sex: "male",
+        name: "Брэд Питт",
         profession: professions.actor,
         qualities: [qualities.handsome],
         completedMeetings: 434,
         rate: 5,
-        bookMark: false
+        bookmark: false
     }
 ];
 if (!localStorage.getItem("users")) {

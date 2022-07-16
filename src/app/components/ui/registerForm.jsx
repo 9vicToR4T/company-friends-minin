@@ -1,143 +1,184 @@
-import React, { useState, useEffect } from "react";
-import { validator } from "../../utils/validator";
-import { validateConfig } from "../../utils/validateConfig";
-import TextForm from "../common/form/textForm";
+import React, { useEffect, useState } from "react";
+import { validator } from "../../utils/ validator";
+import TextField from "../common/form/textField";
 import SelectField from "../common/form/selectField";
-import RadioField from "../common/form/radioField";
+import RadioField from "../common/form/radio.Field";
 import MultiSelectField from "../common/form/multiSelectField";
 import CheckBoxField from "../common/form/checkBoxField";
-import { useQualities } from "../../hooks/useQualities";
-import { useProfession } from "../../hooks/useProfession";
-import { useAuth } from "../../hooks/useAuth";
-import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getQualities } from "../../store/qualities";
+import { getProfessions } from "../../store/professions";
+import { signUp } from "../../store/users";
 
 const RegisterForm = () => {
-    const history = useHistory();
+    const dispatch = useDispatch();
     const [data, setData] = useState({
         email: "",
         password: "",
         profession: "",
+        sex: "male",
         name: "",
-        radio: "male",
         qualities: [],
         licence: false
     });
-    const { signUp } = useAuth();
-    const { professions } = useProfession();
-    const newProfessionsArray = professions.map((p) => ({
-        label: p.name,
-        value: p._id
-    }));
-    const { qualitiesList } = useQualities();
-    const newQualitiesArray = qualitiesList.map((q) => ({
+
+    const qualities = useSelector(getQualities());
+    const qualitiesList = qualities.map((q) => ({
         label: q.name,
         value: q._id
     }));
-    const [errors, setErrors] = useState({});
+    const professions = useSelector(getProfessions());
 
+    const professionsList = professions.map((p) => ({
+        label: p.name,
+        value: p._id
+    }));
+    const [errors, setErrors] = useState({});
+    const handleChange = (target) => {
+        setData((prevState) => ({
+            ...prevState,
+            [target.name]: target.value
+        }));
+    };
+    const validatorConfog = {
+        email: {
+            isRequired: {
+                message: "Please write your email"
+            },
+            isEmail: {
+                message: "Wrong email address"
+            }
+        },
+        name: {
+            isRequired: {
+                message: "Name it should be written"
+            },
+            min: {
+                message: "Minim 3 symbols",
+                value: 3
+            }
+        },
+        password: {
+            isRequired: {
+                message: "Please write your password"
+            },
+            isCapitalSymbol: {
+                message: "Password should contain minim one capital letter"
+            },
+            isContainDigit: {
+                message: "Password should contain minim one number"
+            },
+            min: {
+                message: "Password length should be minim 8 symbols",
+                value: 8
+            }
+        },
+        profession: {
+            isRequired: {
+                message: "Please choose your profession"
+            }
+        },
+        licence: {
+            isRequired: {
+                message:
+                    "You can't use our services without approve our licence rules"
+            }
+        },
+        qualities: {
+            isRequired: {
+                message: "Choose your qualities"
+            },
+            isQuality: {
+                message: "Choose your qualities"
+            }
+        }
+    };
     useEffect(() => {
         validate();
     }, [data]);
-
-    const handleChange = (objectTarget) => {
-        // initial foloseam event, insa pentru a lucra si cu masive am creat in fiecare component inca un nivel de abstractie(handleChange), care acolo prelucreaza datele si ofera aici obiectul gata
-        setData((prevState) => ({
-            ...prevState,
-            [objectTarget.name]: objectTarget.value
-        }));
-    };
-
     const validate = () => {
-        const errors = validator(data, validateConfig);
+        const errors = validator(data, validatorConfog);
         setErrors(errors);
         return Object.keys(errors).length === 0;
     };
     const isValid = Object.keys(errors).length === 0;
 
-    const handleSubmitForm = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         const isValid = validate();
-        if (!isValid) {
-            return;
-        }
+        if (!isValid) return;
         const newData = {
             ...data,
             qualities: data.qualities.map((q) => q.value)
         };
-        try {
-            await signUp(newData);
-            history.push("/");
-        } catch (error) {
-            setErrors(error);
-        }
+        dispatch(signUp(newData));
     };
+
     return (
-        <form onSubmit={handleSubmitForm}>
-            <TextForm
+        <form onSubmit={handleSubmit}>
+            <TextField
                 label="Email"
                 name="email"
-                type="text"
-                value={data.value}
-                error={errors["email"]}
+                value={data.email}
                 onChange={handleChange}
+                error={errors.email}
             />
-            <TextForm
-                label="Password"
-                name="password"
-                type="password"
-                value={data.value}
-                error={errors["password"]}
-                onChange={handleChange}
-            />
-            <TextForm
+            <TextField
                 label="Name"
                 name="name"
-                type="text"
                 value={data.name}
-                error={errors["name"]}
                 onChange={handleChange}
+                error={errors.name}
+            />
+            <TextField
+                label="Password"
+                type="password"
+                name="password"
+                value={data.password}
+                onChange={handleChange}
+                error={errors.password}
             />
             <SelectField
-                label="Profession"
+                label="Choose your profession"
+                defaultOption="Choose..."
                 name="profession"
-                valueSelect={data.profession}
-                defaultOption="Choose your profession..."
-                onChangeSelect={handleChange}
-                data={newProfessionsArray}
-                error={errors["profession"]}
+                options={professionsList}
+                onChange={handleChange}
+                value={data.profession}
+                error={errors.profession}
             />
             <RadioField
                 options={[
                     { name: "Male", value: "male" },
                     { name: "Female", value: "female" },
-                    { name: "Others", value: "others" }
+                    { name: "Other", value: "other" }
                 ]}
-                label="Sex:"
-                name="radio"
-                value={data.radio}
+                value={data.sex}
+                name="sex"
                 onChange={handleChange}
+                label="Choose your gender"
             />
             <MultiSelectField
-                defaultValue={data.qualities}
-                label="Select your qualities"
+                options={qualitiesList}
                 onChange={handleChange}
-                options={newQualitiesArray}
                 name="qualities"
+                label="Choose your qualities"
+                error={errors.qualities}
             />
             <CheckBoxField
-                name="licence"
                 value={data.licence}
                 onChange={handleChange}
+                name="licence"
                 error={errors.licence}
             >
-                Accept licence rights!
+                Accept <a>license rules</a>
             </CheckBoxField>
             <button
                 type="submit"
-                className="btn btn-primary w-100 ma-0 mt-3"
                 disabled={!isValid}
+                className="btn btn-primary w-100 mx-auto"
             >
-                Send Form
+                Submit
             </button>
         </form>
     );

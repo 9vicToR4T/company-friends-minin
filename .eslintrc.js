@@ -1,43 +1,32 @@
 module.exports = {
     env: {
         browser: true,
-        es2021: true,
-        es6: true
+        es2021: true
     },
     extends: ["plugin:react/recommended", "standard"],
     parserOptions: {
         ecmaFeatures: {
             jsx: true
         },
-        ecmaVersion: 13,
-        sourceType: "module",
-        allowKeywords: false
+        ecmaVersion: 12,
+        sourceType: "module"
     },
     plugins: ["react"],
     rules: {
-        indent: [0, 4],
         semi: [2, "always"],
+        indent: [0, 4],
         "space-before-function-paren": [
             "error",
-            { named: "never", anonymous: "always" }
+            { anonymous: "always", named: "never" }
         ],
-        "no-tabs": ["error", { allowIndentationTabs: true }],
-        "dot-notation": 0,
+        "multiline-ternary": ["off"],
         quotes: [
-            0,
-            "duble",
+            "error",
+            "double",
             {
                 allowTemplateLiterals: true,
                 avoidEscape: true
             }
         ]
-    },
-    settings: {
-        "import/resolver": {
-            node: {
-                "import/no-unresolved": 0,
-                "import/extensions": 0
-            }
-        }
     }
 };

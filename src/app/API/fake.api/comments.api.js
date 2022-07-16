@@ -4,21 +4,21 @@ const comments = [
         userId: "67rdca3eeb7f6fgeed471815",
         pageId: "67rdca3eeb7f6fgeed471815",
         content: "Lorem ipsum dolor",
-        createdAt: "1633576399367"
+        created_at: "1633576399367"
     },
     {
         _id: "67rdca3eeb7f6fgdasd",
         pageId: "67rdca3eeb7f6fgeed471815",
         userId: "67rdca3eeb7f6fgeed471815",
         content: "Lorem ipsum dolor and etc",
-        createdAt: "1633573058520"
+        created_at: "1633573058520"
     },
     {
         _id: "67rdca3eeb7f6fgdaasd",
         pageId: "67rdca3eeb7f6fgeed471817",
         userId: "67rdca3eeb7f6fgeed471815",
         content: "Lorem ipsum dolor and etc",
-        createdAt: "1633573058520"
+        created_at: "1633573058520"
     }
 ];
 if (!localStorage.getItem("comments")) {
@@ -47,7 +47,7 @@ const add = (data) =>
             const comments = JSON.parse(localStorage.getItem("comments"));
             const newComment = {
                 ...data,
-                createdAt: Date.now(),
+                created_at: Date.now(),
                 _id: Math.random().toString(36).substr(2, 9)
             };
             comments.push(newComment);

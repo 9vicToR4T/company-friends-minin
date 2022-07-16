@@ -1,0 +1,75 @@
+.rate-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-size: 22px;
+    border-top: 1px solid #222;
+}
+.button-rate-down {
+    width: 40px;
+    height: 40px;
+    align-self: center;
+    transition: all 0.5s;
+}
+.button-rate-down:hover {
+}
+
+.button-rate-up {
+    width: 40px;
+    height: 40px;
+    align-self: center;
+    transition: all 0.5s;
+}
+.button-rate-up:hover {
+}
+.icon-rate-up {
+    color: #fc4a1a;
+}
+.rate {
+    color: #001f3f;
+}
+.rate-title {
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    color: #001f3f;
+}
+.meetings-container {
+    display: flex;
+    justify-content: center;
+    font-size: 22px;
+}
+.meet-btn {
+    border: 0;
+    border-radius: 50px;
+    color: #001f3f;
+    transition: all 0.5s;
+}
+.meet-btn:hover {
+}
+.btn-plus {
+    align-self: center;
+    width: 40px;
+    height: 40px;
+}
+.btn-minus {
+    align-self: center;
+    width: 40px;
+    height: 40px;
+}
+.sumbit-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.submit-button {
+    border: none;
+    border-radius: 10px;
+    background-color: #001f3f;
+    color: #38ef7d;
+    padding: 10px;
+}

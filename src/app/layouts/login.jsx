@@ -1,55 +1,46 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import LoginForm from "../components/ui/loginForm";
 import RegisterForm from "../components/ui/registerForm";
 
 const Login = () => {
-    const { registerParam } = useParams();
+    const { type } = useParams();
     const [formType, setFormType] = useState(
-        registerParam === "register" ? "register" : "login"
+        type === "register" ? type : "login"
     );
-    const handleFormType = () => {
+    const toggleFormType = (params) => {
         setFormType((prevState) =>
             prevState === "register" ? "login" : "register"
         );
     };
 
     return (
-        <div className="container ">
-            <div className="row justify-content-center">
-                <div className="col-md-6 shadow mt-5 p-4">
-                    {formType === "register"
-                    ? (
+        <div className="container mt-5">
+            <div className="row">
+                <div className="col-md-6 offset-md-3 shadow p-4">
+                    {formType === "register" ? (
                         <>
-                            <h2>Register</h2>
+                            <h3 className="mb-4">Register</h3>
                             <RegisterForm />
-                            <div className="mt-3">
-                                Have an account?{" "}
-                                <a role="button" onClick={handleFormType}>
-                                    Login
+                            <p>
+                                Already have account?{" "}
+                                <a role="button" onClick={toggleFormType}>
+                                    {" "}
+                                    Sign In
                                 </a>
-                                {/* <Link to="/login" onClick={handleFormType}>
-                                    Login
-                                </Link> */}
-                            </div>
+                            </p>
                         </>
-                    )
-                    : (
+                    ) : (
                         <>
-                            <h2>Login</h2>
+                            <h3 className="mb-4">Login</h3>
                             <LoginForm />
-                            <div className="mt-3">
-                                Do not have an account?{" "}
-                                <a role="button" onClick={handleFormType}>
-                                    Register
+                            <p>
+                                Dont have account?{" "}
+                                <a role="button" onClick={toggleFormType}>
+                                    {" "}
+                                    Sign Up
                                 </a>
-                                {/* <Link
-                                    to="/login/register"
-                                    onClick={handleFormType}
-                                >
-                                    Register
-                                </Link> */}
-                            </div>
+                            </p>
                         </>
                     )}
                 </div>
@@ -57,5 +48,4 @@ const Login = () => {
         </div>
     );
 };
-
 export default Login;

@@ -1,48 +1,54 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Select from "react-select";
+import PropTypes from "prop-types";
 
-const MultiSelectField = ({ defaultValue, label, options, name, onChange }) => {
-    const handleChange = (value) => {
-        onChange({ name: name, value: value });
-    };
-    const defQualities = Object.keys(defaultValue).map((obj) => ({
-        label: defaultValue[obj].name,
-        value: defaultValue[obj]._id
-    }));
-
-    const isArray =
+const MultiSelectField = ({
+    options,
+    onChange,
+    name,
+    label,
+    defaultValue,
+    error
+}) => {
+    const optionsArray =
         !Array.isArray(options) && typeof options === "object"
-            ? Object.keys(options).map((professionName) => ({
-                  label: options[professionName].name,
-                  value: options[professionName]._id
+            ? Object.keys(options).map((optionName) => ({
+                  label: options[optionName].name,
+                  value: options[optionName]._id
               }))
             : options;
 
+    const handleChange = (value) => {
+        onChange({ name: name, value });
+    };
     return (
-        <div className="mt-4">
-            <label className="form-label me-2 pe-auto">{label} </label>
-            <div>
-                <Select
-                    defaultValue={defQualities}
-                    isMulti
-                    closeMenuOnSelect={false}
-                    onChange={handleChange}
-                    name={name}
-                    options={isArray}
-                    className="basic-multi-select"
-                    classNamePrefix="select"
-                />
-            </div>
+        <div className="mb-4">
+            <label className="form-label">{label}</label>
+            <Select
+                isMulti
+                closeMenuOnSelect={false}
+                defaultValue={defaultValue}
+                options={optionsArray}
+                className="basic-multi-select"
+                classNamePrefix="select"
+                onChange={handleChange}
+                name={name}
+            />
+            {error && (
+                <span style={{ color: "#FF4136", fontSize: "12px" }}>
+                    {error}
+                </span>
+            )}
         </div>
     );
 };
 MultiSelectField.propTypes = {
-    defaultValue: PropTypes.array,
-    label: PropTypes.string,
     options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    onChange: PropTypes.func,
     name: PropTypes.string,
-    onChange: PropTypes.func
+    label: PropTypes.string,
+    defaultValue: PropTypes.array,
+    error: PropTypes.string
 };
 
 export default MultiSelectField;
